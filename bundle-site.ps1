@@ -6,4 +6,6 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
+pwd
+
 ZipFiles website.zip src/
