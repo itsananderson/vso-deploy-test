@@ -1,3 +1,7 @@
+Param(
+    [string]$zipPath
+)
+
 function ZipFiles( $zipfilename, $sourcedir )
 {
    Add-Type -Assembly System.IO.Compression.FileSystem
@@ -6,6 +10,9 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
-pwd
+cp package.json src/
+cp node_modules src/
 
-ZipFiles ../../staging/website.zip src/
+rm $zipPath
+
+ZipFiles $zipPath src/
