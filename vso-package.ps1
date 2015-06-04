@@ -18,7 +18,7 @@ if (!(test-path "$npm")) {
 echo "Using npm at $npm"
 
 echo "Installing base npm modules"
-cmd /C "'$npm' i"
+cmd /C "$npm" i
 
 if (test-path bin/) {
     echo "Removing bin"
@@ -41,7 +41,7 @@ echo "Moving into bin/"
 cd bin/
 
 echo "Installing production modules"
-cmd /C "'$npm' i --production"
+cmd /C "$npm" i --production
 
 echo "Moving out of bin/"
 cd ..
