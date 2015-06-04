@@ -13,14 +13,20 @@ function ZipFiles( $zipfilename, $sourcedir )
 echo "Installing base npm modules"
 cmd /C '"C:\Program Files\nodejs\npm.cmd"  i'
 
+echo "Removing bin"
+remove-item -Recurse -Force bin/
+
 echo "Copying sources"
-cp -r src/ bin/
+cp -r src/ bin/src/
 
 echo "Copying package.json"
 cp package.json bin/
 
 echo "Copying README"
 cp README.md bin/
+
+echo "Copying web.config"
+cp web.config bin/
 
 echo "Moving into bin/"
 cd bin/
