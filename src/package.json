@@ -1,0 +1,23 @@
+{
+  "name": "vso-deploy-test",
+  "version": "1.0.0",
+  "description": "Test for website deployment to Azure",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsananderson/vso-deploy-test.git"
+  },
+  "author": "Will Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itsananderson/vso-deploy-test/issues"
+  },
+  "homepage": "https://github.com/itsananderson/vso-deploy-test#readme",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}

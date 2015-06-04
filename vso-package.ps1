@@ -13,16 +13,22 @@ function ZipFiles( $zipfilename, $sourcedir )
 echo "Installing base npm modules"
 cmd /C '"C:\Program Files\nodejs\npm.cmd"  i'
 
-echo "Moving package.json"
-cp package.json src/
+echo "Copying sources"
+cp src/ bin/
 
-echo "Moving into src/"
-cd src/
+echo "Copying package.json"
+cp package.json bin/
 
-echo "Installing base production modules"
+echo "Copying README"
+cp README.md bin/
+
+echo "Moving into bin/"
+cd bin/
+
+echo "Installing production modules"
 cmd /C '"C:\Program Files\nodejs\npm.cmd" i --production'
 
-echo "Moving out of src/"
+echo "Moving out of bin/"
 cd ..
 
 if (test-path $zipPath) {
@@ -31,4 +37,4 @@ if (test-path $zipPath) {
 }
 
 echo "Creating new zip"
-ZipFiles $zipPath src/
+ZipFiles $zipPath bin/

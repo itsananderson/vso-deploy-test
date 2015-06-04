@@ -28,4 +28,4 @@ node_modules
 
 *.zip
 
-src/package.json
+bin/
