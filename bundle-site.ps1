@@ -8,4 +8,4 @@ function ZipFiles( $zipfilename, $sourcedir )
 
 pwd
 
-ZipFiles website.zip src/
+ZipFiles ../../staging/website.zip src/
