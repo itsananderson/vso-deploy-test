@@ -13,8 +13,10 @@ function ZipFiles( $zipfilename, $sourcedir )
 echo "Installing base npm modules"
 cmd /C '"C:\Program Files\nodejs\npm.cmd"  i'
 
-echo "Removing bin"
-remove-item -Recurse -Force bin/
+if (test-path bin/) {
+    echo "Removing bin"
+    remove-item -Recurse -Force bin/
+}
 
 echo "Copying sources"
 cp -r src/ bin/src/
