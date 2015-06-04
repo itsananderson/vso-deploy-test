@@ -14,7 +14,7 @@ echo "Installing base npm modules"
 cmd /C '"C:\Program Files\nodejs\npm.cmd"  i'
 
 echo "Copying sources"
-cp src/ bin/
+cp -r src/ bin/
 
 echo "Copying package.json"
 cp package.json bin/
