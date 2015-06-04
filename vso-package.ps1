@@ -10,8 +10,15 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
+$npm = echo "C:\Program Files\nodejs\npm.cmd"
+if (!(test-path "$npm")) {
+    $npm = echo "C:\Program Files (x86)\nodejs\npm.cmd";
+}
+
+echo "Using npm at $npm"
+
 echo "Installing base npm modules"
-cmd /C '"C:\Program Files\nodejs\npm.cmd"  i'
+cmd /C "'$npm' i"
 
 if (test-path bin/) {
     echo "Removing bin"
@@ -34,7 +41,7 @@ echo "Moving into bin/"
 cd bin/
 
 echo "Installing production modules"
-cmd /C '"C:\Program Files\nodejs\npm.cmd" i --production'
+cmd /C "'$npm' i --production"
 
 echo "Moving out of bin/"
 cd ..
