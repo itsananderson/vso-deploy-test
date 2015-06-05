@@ -62,7 +62,7 @@ if (test-path $zipPath) {
 }
 
 echo "Creating new zip at $zipPath"
-ZipFiles $zipPath bin/
+ZipFiles $zipPath ./bin/
 
 Stop-AzureWebsite -Name $websiteName -Slot $stagingSlot
 
