@@ -4,16 +4,6 @@ Param(
     [boolean]$swap = $true
 )
 
-function ZipFiles( $zipfilename, $sourcedir )
-{
-    echo "Adding filesystem assembly"
-    Add-Type -Assembly System.IO.Compression.FileSystem
-    $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
-    echo "Creating zip file"
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourcedir,
-        $zipfilename, $compressionLevel, $false)
-}
-
 $pwd = pwd
 
 $sourcesDir = pwd
@@ -73,7 +63,9 @@ if (test-path $zipPath) {
 }
 
 echo "Creating new zip at $zipPath"
-ZipFiles $zipPath $binDir
+Add-Type -Assembly System.IO.Compression.FileSystem
+$compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
+[System.IO.Compression.ZipFile]::CreateFromDirectory($binDir, $zipPath, $compressionLevel, $false)
 
 echo "Stopping $stagingSlot slot on $websiteName"
 Stop-AzureWebsite -Name $websiteName -Slot $stagingSlot
