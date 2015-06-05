@@ -15,9 +15,12 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
+$binDir = "./bin"
+
 if ($env:BUILD_SOURCESDIRECTORY) {
     echo "Moving to ${env:BUILD_SOURCESDIRECTORY}"
     cd $env:BUILD_SOURCESDIRECTORY
+    $binDir = "${env:BUILD_SOURCESDIRECTORY}/bin/"
 }
 
 $npm = echo "C:\Program Files\nodejs\npm.cmd"
@@ -48,7 +51,7 @@ echo "Copying web.config"
 cp web.config bin/
 
 echo "Moving into bin/"
-cd ./bin/
+cd $binDir
 
 pwd
 
@@ -66,7 +69,7 @@ if (test-path $zipPath) {
 }
 
 echo "Creating new zip at $zipPath"
-ZipFiles $zipPath ./bin/
+ZipFiles $zipPath $binDir
 
 Stop-AzureWebsite -Name $websiteName -Slot $stagingSlot
 
