@@ -71,12 +71,16 @@ if (test-path $zipPath) {
 echo "Creating new zip at $zipPath"
 ZipFiles $zipPath $binDir
 
+echo "Stopping $stagingSlot slot on $websiteName"
 Stop-AzureWebsite -Name $websiteName -Slot $stagingSlot
 
+echo "Publishing to $stagingSlot slot on $websiteName"
 Publish-AzureWebsiteProject -Name $websiteName -Slot $stagingSlot -Package $zipPath
 
+echo "Starting $stagingSlot slot on $websiteName"
 Start-AzureWebsite -Name $websiteName -Slot $stagingSlot
 
 if ($swap) {
+    echo "Swapping staging and production slots on $websiteName"
     Switch-AzureWebsiteSlot -name $websiteName -force
 }
