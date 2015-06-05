@@ -48,13 +48,17 @@ echo "Copying web.config"
 cp web.config bin/
 
 echo "Moving into bin/"
-cd bin/
+cd ./bin/
+
+pwd
 
 echo "Installing production modules"
 cmd /C "$npm" i --production
 
 echo "Moving out of bin/"
 cd ..
+
+pwd
 
 if (test-path $zipPath) {
     echo "Deleting old zip"
