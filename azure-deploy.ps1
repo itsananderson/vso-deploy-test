@@ -1,5 +1,4 @@
 Param(
-    [string]$zipPath,
     [string]$websiteName,
     [string]$stagingSlot,
     [boolean]$swap = $true
@@ -15,13 +14,18 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
-$binDir = "./bin"
+$pwd = pwd
+
+$sourcesDir = pwd
 
 if ($env:BUILD_SOURCESDIRECTORY) {
     echo "Moving to ${env:BUILD_SOURCESDIRECTORY}"
     cd $env:BUILD_SOURCESDIRECTORY
-    $binDir = "${env:BUILD_SOURCESDIRECTORY}/bin/"
+    $sourcesDir = $env:BUILD_SOURCESDIRECTORY
 }
+
+$binDir = "$sourcesDir/bin"
+$zipPath = "$sourcesDir/website.zip"
 
 $npm = echo "C:\Program Files\nodejs\npm.cmd"
 if (!(test-path "$npm")) {
@@ -33,24 +37,24 @@ echo "Using npm at $npm"
 echo "Installing base npm modules"
 cmd /C "$npm" i
 
-if (test-path bin/) {
+if (test-path $binDir) {
     echo "Removing bin"
-    remove-item -Recurse -Force bin/
+    remove-item -Recurse -Force $binDir
 }
 
 echo "Copying sources"
-cp -r src/ bin/src/
+cp -r src/ $binDir/src/
 
 echo "Copying package.json"
-cp package.json bin/
+cp package.json $binDir/
 
 echo "Copying README"
-cp README.md bin/
+cp README.md $binDir/
 
 echo "Copying web.config"
-cp web.config bin/
+cp web.config $binDir/
 
-echo "Moving into bin/"
+echo "Moving into $binDir/"
 cd $binDir
 
 pwd
@@ -58,7 +62,7 @@ pwd
 echo "Installing production modules"
 cmd /C "$npm" i --production
 
-echo "Moving out of bin/"
+echo "Moving out of $binDir/"
 cd ..
 
 pwd
