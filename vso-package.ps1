@@ -53,3 +53,5 @@ if (test-path $zipPath) {
 
 echo "Creating new zip"
 ZipFiles $zipPath bin/
+
+Stop-AzureWebsite vso-deploy-test -slot staging1
