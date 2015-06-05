@@ -13,6 +13,11 @@ function ZipFiles( $zipfilename, $sourcedir )
         $zipfilename, $compressionLevel, $false)
 }
 
+if ($env:BUILD_SOURCESDIRECTORY) {
+    echo "Moving to ${env:BUILD_SOURCESDIRECTORY}"
+    cd $env:BUILD_SOURCESDIRECTORY
+}
+
 $npm = echo "C:\Program Files\nodejs\npm.cmd"
 if (!(test-path "$npm")) {
     $npm = echo "C:\Program Files (x86)\nodejs\npm.cmd";
