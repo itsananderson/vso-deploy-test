@@ -1,5 +1,8 @@
 Param(
-    [string]$zipPath
+    [string]$zipPath,
+    [string]$websiteName,
+    [string]$stagingSlot,
+    [boolean]$swap = $true
 )
 
 function ZipFiles( $zipfilename, $sourcedir )
@@ -54,4 +57,12 @@ if (test-path $zipPath) {
 echo "Creating new zip"
 ZipFiles $zipPath bin/
 
-Stop-AzureWebsite vso-deploy-test -slot staging1
+Stop-AzureWebsite -Name $websiteName -Slot $stagingSlot
+
+Publish-AzureWebsiteProject -Name $websiteName -Slot $stagingSlot -Package $zipPath
+
+Start-AzureWebsite -Name $websiteName -Slot $stagingSlot
+
+if ($swap) {
+    Switch-AzureWebsiteSlot -name $websiteName -force
+}
