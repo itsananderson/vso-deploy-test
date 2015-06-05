@@ -7,8 +7,10 @@ Param(
 
 function ZipFiles( $zipfilename, $sourcedir )
 {
+    echo "Adding filesystem assembly"
     Add-Type -Assembly System.IO.Compression.FileSystem
     $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
+    echo "Creating zip file"
     [System.IO.Compression.ZipFile]::CreateFromDirectory($sourcedir,
         $zipfilename, $compressionLevel, $false)
 }
